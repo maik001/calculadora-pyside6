@@ -8,18 +8,18 @@ class MainWindow(QMainWindow):
 
         # Configurar o Layout
         self.c_widget = QWidget()
-        self.vLayout = QVBoxLayout()
-        self.c_widget.setLayout(self.vLayout)
+        self.v_layout = QVBoxLayout()
+        self.c_widget.setLayout(self.v_layout)
         self.setCentralWidget(self.c_widget)
 
         # Titulo da janela
         self.setWindowTitle('Calculadora')
 
     # Fixa o tamanho da janela com base nos componentes(adjust)
-    def adjustFixedSize(self):
+    def adjust_fixed_size(self):
         self.adjustSize()
         self.setFixedSize(self.width(), self.height())
 
     # Adiciona um widget para o layout vertical
-    def addWidgetToVLayout(self, widget: QWidget):
-        self.vLayout.addWidget(widget)
+    def add_widget_to_vlayout(self, widget: QWidget):
+        self.v_layout.addWidget(widget)
