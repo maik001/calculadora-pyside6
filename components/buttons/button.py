@@ -1,6 +1,7 @@
 from PySide6.QtWidgets import QPushButton
 from constants import MEDIUM_FONT_SIZE
 
+
 class Button(QPushButton):
     def __init__(self, *args, **kwargs):
         super().__init__(*args, **kwargs)
