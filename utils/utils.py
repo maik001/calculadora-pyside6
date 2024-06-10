@@ -9,3 +9,13 @@ def is_num_or_dot(string: str):
 
 def is_empty(string: str):
     return len(string) == 0
+
+
+def is_valid_number(arg):
+    valid = False
+    try:
+        float(arg)
+        valid = True
+    except ValueError:
+        valid = False
+    return valid

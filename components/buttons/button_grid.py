@@ -1,12 +1,17 @@
 from PySide6.QtWidgets import QGridLayout
 from PySide6.QtCore import Slot
 from components.buttons.button import Button
-from utils.utils import is_empty, is_num_or_dot
-from components.display import Display
+from utils.utils import is_empty, is_num_or_dot, is_valid_number
+from typing import TYPE_CHECKING
+
+# Evitar o Erro de Importação Circular (Circular Import)
+if TYPE_CHECKING:
+    from components.display import Display
+    from components.info_calculo import InfoCalc
 
 
 class ButtonGrid(QGridLayout):
-    def __init__(self, display: Display, *args, **kwargs):
+    def __init__(self, display: 'Display', info: 'InfoCalc', *args, **kwargs) -> None:
         super().__init__(*args, **kwargs)
 
         self._grid_mask = [
@@ -18,7 +23,20 @@ class ButtonGrid(QGridLayout):
         ]
 
         self.display = display
+        self.info = info
+        self._equation = ''
+
+        self.equation = 'Qualquer Coisa'
         self._make_grid()
+
+    @property
+    def equation(self):
+        return self._equation
+
+    @equation.setter
+    def equation(self, value):
+        self._equation = value
+        self.info.setText(value)
 
     def _make_grid(self):
         for row, list_data in enumerate(self._grid_mask):
@@ -43,4 +61,14 @@ class ButtonGrid(QGridLayout):
         return real_slot
 
     def _insert_button_text_to_display(self, button: Button):
-        self.display.insert(button.text())
+        button_text = button.text()
+
+        new_display_value = self.display.text() + button_text
+
+        if not is_valid_number(new_display_value):
+            return
+
+        if button_text == '=':
+            self.display.setText(str(eval(self.display.text())))
+        else:
+            self.display.insert(button_text)

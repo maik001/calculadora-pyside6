@@ -21,14 +21,14 @@ if __name__ == '__main__':
     app.setWindowIcon(icon)
 
     # Label com as informações do histórico de cálculos
-    info = InfoCalc('2.0 ^ 10.0 = 1024 ')
+    info = InfoCalc('Cálculo')
     window.add_widget_to_vlayout(info)
 
     # Input para calcular
     display = Display()
     window.add_widget_to_vlayout(display)
 
-    button_grid = ButtonGrid(display)
+    button_grid = ButtonGrid(display, info)
     window.v_layout.addLayout(button_grid)
 
     window.adjust_fixed_size()
